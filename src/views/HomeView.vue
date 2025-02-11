@@ -97,8 +97,6 @@ section {
 }
 
 .text-box {
-  border-top-right-radius: var(--border-radius);
-  border-top-left-radius: var(--border-radius);
   background-color: var(--ur-c-black-t2);
   padding: var(--m-spacing) var(--m-spacing) 0 var(--m-spacing);
 
