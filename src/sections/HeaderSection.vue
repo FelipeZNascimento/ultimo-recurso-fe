@@ -74,7 +74,9 @@ header {
     display: flex;
     align-items: center;
     gap: var(--s-spacing);
+    z-index: -1;
     margin-top: calc(-1 * var(--xs-spacing));
+    border: 2px solid var(--color-border);
     border-bottom-right-radius: var(--border-radius);
     border-bottom-left-radius: var(--border-radius);
     background-color: var(--color-background);
@@ -84,7 +86,7 @@ header {
 
     a {
       display: flex;
-      padding: 0 var(--s-spacing);
+      padding: var(--s-spacing);
     }
   }
 }
@@ -112,7 +114,7 @@ nav {
   a {
     display: inline-block;
     cursor: pointer;
-    padding: 0 1rem;
+    margin: 0 var(--s-spacing);
     color: var(--navigation-anchor-color);
 
     &:hover {
@@ -128,7 +130,6 @@ nav {
 
 nav a.router-link-exact-active {
   color: var(--ur-c-green);
-  font-weight: 600;
 
   &:hover {
     background-color: inherit;
