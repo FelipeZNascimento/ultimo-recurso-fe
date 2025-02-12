@@ -47,6 +47,7 @@ import InstagramIcon from '@/components/icons/IconInstagram.vue';
 import YouTubeIcon from '@/components/icons/IconYouTube.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { routes } from '@/router';
+import { MediaQuery, useBreakpoints } from '@/utils/mediaQuery';
 
 const isDarkTheme = ref(false);
 const hoveredRouteSubmenus: Ref<null | { path: string; name: string }[]> = ref(routes[0].submenus);
@@ -54,7 +55,13 @@ const themeStore = useThemeStore();
 
 onMounted(() => {
   themeStore.initialize();
+  const { mediaQuery } = useBreakpoints();
+
   isDarkTheme.value = themeStore.getTheme() === 'dark';
+
+  if (mediaQuery.value <= MediaQuery.md) {
+    alert('is mobile!');
+  }
 });
 
 watch(

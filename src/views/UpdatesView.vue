@@ -11,6 +11,7 @@
         inspiration;
       </li>
       <li>[Desktop] Moved and improved social media icons;</li>
+      <li>Added screen size identifier for desktop/mobile renderings;</li>
     </ul>
     <h1>-------------------------------------------------------------------------------</h1>
     <h1>11/02</h1>
