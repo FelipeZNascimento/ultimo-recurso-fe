@@ -1,24 +1,36 @@
 <template>
   <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">
-          <img v-if="isDarkTheme" class="logo" src="@/assets/logo-dark.png" />
-          <img v-else class="logo" src="@/assets/logo-light.png" />
-        </RouterLink>
-        <RouterLink to="/quem">Home</RouterLink>
-        <RouterLink to="/oque">About</RouterLink>
-        <RouterLink to="/nosso-trabalho">Nosso Trabalho</RouterLink>
-        <!-- <button @click="toggleTheme">Theme</button> -->
-        <ButtonComponent theme="regular" text="Junta-te" />
-        <ButtonComponent theme="money" text="Faz uma doação" />
-        <a @click="toggleTheme"><DarkModeIcon /></a>
+    <div class="wrapper" @mouseleave="hoveredRouteSubmenus = null">
+      <nav class="nav">
+        <div class="main-menu">
+          <RouterLink to="/">
+            <img v-if="isDarkTheme" class="logo" src="@/assets/logo-dark.png" />
+            <img v-else class="logo" src="@/assets/logo-light.png" />
+          </RouterLink>
+          <RouterLink
+            v-for="(item, index) in routes"
+            :key="index"
+            :to="item.path"
+            @mouseover="() => handleMouseOver(index)"
+            @click="hoveredRouteSubmenus = null"
+          >
+            {{ item.name }}
+          </RouterLink>
+          <ButtonComponent theme="regular" text="Junta-te" />
+          <ButtonComponent theme="money" text="Faz uma doação" />
+          <div class="social-media">
+            <a href="#"><TwitterIcon /></a>
+            <a href="#"><InstagramIcon /></a>
+            <a href="#"><YouTubeIcon /></a>
+          </div>
+          <a class="theme-icon" @click="toggleTheme"><DarkModeIcon /></a>
+        </div>
+        <Transition>
+          <div class="sub-menu" v-if="hoveredRouteSubmenus">
+            <a v-for="(item, index) in hoveredRouteSubmenus" :key="index">{{ item.name }}</a>
+          </div>
+        </Transition>
       </nav>
-      <div class="social-media">
-        <a href="#"><TwitterIcon /></a>
-        <a href="#"><InstagramIcon /></a>
-        <a href="#"><YouTubeIcon /></a>
-      </div>
     </div>
   </header>
 </template>
@@ -27,13 +39,17 @@
 import { RouterLink } from 'vue-router';
 import { useThemeStore } from '@/stores/ThemeStore';
 import { ref, watch, onMounted } from 'vue';
+import type { Ref } from 'vue';
+
 import DarkModeIcon from '@/components/icons/IconDarkMode.vue';
 import TwitterIcon from '@/components/icons/IconTwitter.vue';
 import InstagramIcon from '@/components/icons/IconInstagram.vue';
 import YouTubeIcon from '@/components/icons/IconYouTube.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
+import { routes } from '@/router';
 
 const isDarkTheme = ref(false);
+const hoveredRouteSubmenus: Ref<null | { path: string; name: string }[]> = ref(routes[0].submenus);
 const themeStore = useThemeStore();
 
 onMounted(() => {
@@ -51,13 +67,38 @@ watch(
 function toggleTheme() {
   themeStore.toggleTheme();
 }
+
+function handleMouseOver(routeIndex: number) {
+  hoveredRouteSubmenus.value = routes[routeIndex].submenus;
+}
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active {
+  transition:
+    opacity 0.5s ease,
+    max-height 0.5s ease;
+  max-height: 1000px;
+}
+.v-leave-active {
+  transition:
+    opacity 0.1s ease,
+    max-height 0.5s ease;
+  border: 0 !important;
+  padding: 0 !important;
+  max-height: 0;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  padding: 0;
+  max-height: 0;
+}
 header {
   position: -webkit-sticky; /* For Safari */
   position: sticky;
-  top: var(--l-spacing);
+  top: var(--s-spacing);
   z-index: 10; /* Ensures header is above other content */
   text-align: center;
   i {
@@ -72,49 +113,50 @@ header {
 
   .social-media {
     display: flex;
+    flex: 1;
     align-items: center;
-    gap: var(--s-spacing);
-    z-index: -1;
-    margin-top: calc(-1 * var(--xs-spacing));
-    border: 2px solid var(--color-border);
-    border-bottom-right-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
+    border-top: 2px solid var(--color-border);
     background-color: var(--color-background);
-    padding: 0 var(--l-spacing);
-    min-height: 40px;
+    height: 100%;
     color: var(--navigation-anchor-color);
 
     a {
-      display: flex;
-      padding: var(--s-spacing);
+      flex: 1;
+      margin: 0;
+      padding: var(--xs-spacing);
+
+      &:hover {
+        background-color: var(--ur-c-green-t3);
+      }
     }
   }
 }
 
 .wrapper {
   display: flex;
+  position: absolute;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100%;
-  height: var(--nav-height);
+  max-height: var(--nav-height);
 }
 
-nav {
+.nav {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  border: 2px solid var(--color-border);
-  border-radius: 12px;
+  transition: var(--transition-time);
+  border-bottom: 2px solid var(--color-border);
   background-color: var(--color-background);
-  padding: var(--s-spacing);
+  width: 100%;
   font-size: 20px;
   text-align: center;
 
   a {
     display: inline-block;
+    flex: 1;
     cursor: pointer;
-    margin: 0 var(--s-spacing);
+    // margin: 0 var(--s-spacing);
     color: var(--navigation-anchor-color);
 
     &:hover {
@@ -123,9 +165,35 @@ nav {
     }
   }
 
+  .main-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--l-spacing);
+    width: 100%;
+    max-width: var(--max-page-width);
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .theme-icon {
+    flex: 0;
+  }
+
   img {
     height: calc(var(--nav-height) - 10px);
   }
+}
+
+.sub-menu {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--color-border);
+  background-color: var(--color-background);
+  padding: var(--m-spacing) 0;
+  width: 100%;
+  max-width: var(--max-page-width);
+  font-size: 16px;
 }
 
 nav a.router-link-exact-active {
