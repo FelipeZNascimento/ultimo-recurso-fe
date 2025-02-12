@@ -7,7 +7,6 @@
 a,
 .green {
   transition: var(--transition-time);
-  padding: var(--xxs-spacing);
   color: var(--color-link);
   text-decoration: none;
 }
@@ -21,4 +20,5 @@ a,
 
 main {
   margin: 0 auto;
+  padding-top: var(--nav-height);
 }
