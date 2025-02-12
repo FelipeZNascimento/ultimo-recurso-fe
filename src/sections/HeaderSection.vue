@@ -50,7 +50,7 @@ import { routes } from '@/router';
 import { MediaQuery, useBreakpoints } from '@/utils/mediaQuery';
 
 const isDarkTheme = ref(false);
-const hoveredRouteSubmenus: Ref<null | { path: string; name: string }[]> = ref(routes[0].submenus);
+const hoveredRouteSubmenus: Ref<null | { path: string; name: string }[]> = ref(null);
 const themeStore = useThemeStore();
 
 onMounted(() => {
