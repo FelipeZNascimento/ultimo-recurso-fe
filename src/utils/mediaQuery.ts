@@ -19,13 +19,18 @@ function useBreakpoints() {
   onUnmounted(() => window.removeEventListener('resize', onWidthChange));
 
   const mediaQuery = computed(() => {
-    for (const query of Object.keys(MediaQuery)) {
-      if (windowWidth.value < MediaQuery[query]) {
-        return MediaQuery[query];
+    let matchedBreakpoint = MediaQuery['4xl']; // Default to the largest breakpoint
+
+    for (const [, value] of Object.entries(MediaQuery)) {
+      const typedValue = value as number;
+      if (windowWidth.value >= typedValue) {
+        matchedBreakpoint = value as MediaQuery;
+      } else {
+        break; // Stop once we find the largest breakpoint that matches
       }
     }
 
-    return MediaQuery['4xl'];
+    return matchedBreakpoint;
   });
 
   const width = computed(() => windowWidth.value);
