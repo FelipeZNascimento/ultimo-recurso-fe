@@ -1,41 +1,41 @@
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { reactive } from 'vue';
 
-enum MediaQuery {
-  xs = 420,
-  sm = 640,
-  md = 768,
-  lg = 1024,
-  xl = 1280,
-  '2xl' = 1440,
-  '3xl' = 1600,
-  '4xl' = 1920,
+export enum DeviceSize {
+  xs,
+  s,
+  m,
+  l,
+  xl,
 }
 
-function useBreakpoints() {
-  const windowWidth = ref(window.innerWidth);
+export type DeviceInfo = {
+  windowWidth: number;
+  size: DeviceSize;
+};
 
-  const onWidthChange = () => (windowWidth.value = window.innerWidth);
-  onMounted(() => window.addEventListener('resize', onWidthChange));
-  onUnmounted(() => window.removeEventListener('resize', onWidthChange));
+const calcSize = (width: number): DeviceSize => {
+  if (width < 640) return DeviceSize.xs;
+  if (width < 1024) return DeviceSize.s;
+  if (width < 1280) return DeviceSize.m;
+  if (width < 2048) return DeviceSize.l;
+  return DeviceSize.xl;
+};
 
-  const mediaQuery = computed(() => {
-    let matchedBreakpoint = MediaQuery['4xl']; // Default to the largest breakpoint
+const deviceInfo = reactive({
+  windowWidth: window.innerWidth,
+  size: DeviceSize.xs,
+});
 
-    for (const [, value] of Object.entries(MediaQuery)) {
-      const typedValue = value as number;
-      if (windowWidth.value >= typedValue) {
-        matchedBreakpoint = value as MediaQuery;
-      } else {
-        break; // Stop once we find the largest breakpoint that matches
-      }
-    }
+deviceInfo.size = calcSize(window.innerWidth);
 
-    return matchedBreakpoint;
-  });
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  deviceInfo.windowWidth = width;
+  deviceInfo.size = calcSize(width);
+});
 
-  const width = computed(() => windowWidth.value);
+export const useDevice = (): DeviceInfo => {
+  return deviceInfo;
+};
 
-  return { width, mediaQuery };
-}
-
-export { MediaQuery, useBreakpoints };
+export default useDevice;

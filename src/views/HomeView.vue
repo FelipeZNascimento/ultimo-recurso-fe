@@ -65,11 +65,11 @@ section {
 }
 .welcome-section {
   justify-items: center;
-  margin-top: calc(-1 * var(--nav-height));
   background-image: url(@/assets/main.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-top: var(--nav-height);
   max-width: 100vw;
   min-height: 50vh;
 }

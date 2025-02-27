@@ -1,6 +1,26 @@
 <template>
   <main class="about">
     <h1>-------------------------------------------------------------------------------</h1>
+    <h1>27/02</h1>
+    <ul>
+      <li>[Desktop] Improved styling on navigation menu;</li>
+      <li>[Mobile] Added mobile view for menu;</li>
+      <li>
+        Created a new reusable component:
+        <ul>
+          <li>Flip Card;</li>
+        </ul>
+      </li>
+      <li>
+        Created a new section for "Quem" and added Flip Card component there (as an example of how
+        it can be used)
+      </li>
+      <li>General improvement on transitions/animations;</li>
+      <li>Added support for heroicons (heroicons.com);</li>
+      <li>Refined screen size identifier for desktop/mobile renderings;</li>
+      <li>Added .htaccess on server to fix Vue router;</li>
+    </ul>
+    <h1>-------------------------------------------------------------------------------</h1>
     <h1>12/02</h1>
     <ul>
       <li>[Desktop] Improved styling on navigation menu;</li>

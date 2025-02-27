@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import WhoView from '../views/WhoView.vue';
 
 const routes = [
   {
@@ -20,7 +21,7 @@ const routes = [
   {
     path: '/who',
     name: 'Quem',
-    component: HomeView,
+    component: WhoView,
     submenus: [
       {
         path: '/who',

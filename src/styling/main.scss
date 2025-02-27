@@ -10,7 +10,9 @@ a,
   color: var(--color-link);
   text-decoration: none;
 }
-
+img {
+  max-width: 100%;
+}
 @media (hover: hover) {
   a:hover {
     background-color: var(--ur-c-green-t3);
