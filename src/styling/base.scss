@@ -67,11 +67,9 @@ $colors: (
 :root {
   @media (max-width: 1023px) {
     --page-lateral-padding: var(--xs-spacing);
-    --nav-height: 40px;
   }
   @media (min-width: 1024px) {
     --page-lateral-padding: var(--xl-spacing);
-    --nav-height: 80px;
   }
 }
 
@@ -80,6 +78,7 @@ $colors: (
   --max-page-width: 1280px;
   --transition-time: 0.4s;
   --border-radius: 12px;
+  --nav-height: 80px;
 }
 
 /* semantic color variables for this project */

@@ -1,55 +1,55 @@
 <template>
-  <main>
-    <section class="welcome-section">
-      <div class="bg-overlay">
-        <div class="content-container">
-          <div><img src="@/assets/full-logo.png" /></div>
-          <div>
-            <div class="text-box">
-              <h1>Direito como principal ferramenta para um mundo mais justo e sustentável</h1>
-              <h4>
-                Conhece a primeira associação portuguesa que utiliza o Direito como ferramenta de
-                responsabilização dos principais infratores da crise climática do país.
-              </h4>
-            </div>
+  <section class="welcome-section">
+    <div class="bg-overlay">
+      <div class="content-container">
+        <div>
+          <Transition name="fade" appear><img src="@/assets/full-logo.png" /></Transition>
+        </div>
+        <div>
+          <div class="text-box">
+            <h1>Direito como principal ferramenta para um mundo mais justo e sustentável</h1>
+            <h4>
+              Conhece a primeira associação portuguesa que utiliza o Direito como ferramenta de
+              responsabilização dos principais infratores da crise climática do país.
+            </h4>
           </div>
         </div>
       </div>
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section class="parallax-section">
-      <Parallax />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-    <section>
-      <TheWelcome />
-    </section>
-  </main>
+    </div>
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section class="parallax-section">
+    <Parallax />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
+  <section>
+    <TheWelcome />
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -65,11 +65,11 @@ section {
 }
 .welcome-section {
   justify-items: center;
-  margin-top: calc(-1 * var(--nav-height));
   background-image: url(@/assets/main.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  padding-top: var(--nav-height);
   max-width: 100vw;
   min-height: 50vh;
 }

@@ -7,11 +7,12 @@
 a,
 .green {
   transition: var(--transition-time);
-  padding: var(--xxs-spacing);
   color: var(--color-link);
   text-decoration: none;
 }
-
+img {
+  max-width: 100%;
+}
 @media (hover: hover) {
   a:hover {
     background-color: var(--ur-c-green-t3);
@@ -21,4 +22,5 @@ a,
 
 main {
   margin: 0 auto;
+  padding-top: var(--nav-height);
 }
