@@ -1,129 +1,71 @@
 <template>
-  <section class="welcome-section">
-    <div class="bg-overlay">
-      <div class="content-container">
-        <div>
-          <Transition name="fade" appear><img src="@/assets/full-logo.png" /></Transition>
-        </div>
-        <div>
-          <div class="text-box">
-            <h1>Direito como principal ferramenta para um mundo mais justo e sustentável</h1>
-            <h4>
-              Conhece a primeira associação portuguesa que utiliza o Direito como ferramenta de
-              responsabilização dos principais infratores da crise climática do país.
-            </h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <LandingSection />
   <section>
     <TheWelcome />
   </section>
-  <section class="parallax-section">
-    <Parallax />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
-  <section>
-    <TheWelcome />
-  </section>
+  <Parallax imageUrl="divider-image-1.jpg" ref="targetElement" />
+  <span id="parceiros" ref="targetElement">&nbsp;</span>
+  <transition name="fade" appear>
+    <PartnersSection v-if="isInViewport" />
+  </transition>
+  <FooterSection />
 </template>
 
 <script setup lang="ts">
 import TheWelcome from '../components/TheWelcome.vue';
 import Parallax from '@/components/ParallaxComponent.vue';
-// import { ref } from 'vue';
-// const parallaxSpeed = 0.5;
+import LandingSection from '@/sections/LandingSection.vue';
+import FooterSection from '@/sections/FooterSection.vue';
+import { defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
+
+const targetElement = ref(null); // Reference to the element
+const isInViewport = ref(false); // State to track visibility
+const observerCallback = (entries: IntersectionObserverEntry[]) => {
+  entries.forEach((entry) => {
+    isInViewport.value = entry.isIntersecting; // Update state
+    if (observer && targetElement.value && entry.isIntersecting) {
+      observer.unobserve(targetElement.value);
+      observer.disconnect();
+    }
+  });
+};
+
+const PartnersSection = defineAsyncComponent(() => import('@/sections/PartnersSection.vue'));
+let observer: IntersectionObserver | null = null;
+
+onMounted(() => {
+  // Create the Intersection Observer
+  observer = new IntersectionObserver(observerCallback, {
+    root: null, // Use the viewport as the root
+    threshold: 1, // Trigger when 100% of the element is visible
+  });
+
+  // Start observing the target element
+  if (targetElement.value) {
+    observer.observe(targetElement.value);
+  }
+});
+
+onUnmounted(() => {
+  // Clean up the observer
+  if (observer && targetElement.value) {
+    observer.unobserve(targetElement.value);
+    observer.disconnect();
+  }
+});
 </script>
 <style lang="scss" scoped>
-section {
-  margin: 0 auto;
-  max-width: var(--max-page-width);
+#parceiros {
+  scroll-margin-top: var(--nav-height);
 }
-.welcome-section {
-  justify-items: center;
-  background-image: url(@/assets/main.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-top: var(--nav-height);
-  max-width: 100vw;
-  min-height: 50vh;
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1s;
+  max-height: 1000px;
 }
-.bg-overlay {
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  margin-top: calc(-1 * var(--nav-height));
-  background-color: var(--ur-c-white-t1);
-  padding-top: calc(var(--nav-height) + var(--xl-spacing));
-  width: 100vw;
-  min-height: 50vh;
-}
-
-.content-container {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  width: 100%;
-  max-width: var(--max-page-width);
-
-  div {
-    text-align: center;
-  }
-}
-
-.text-box {
-  background-color: var(--ur-c-black-t2);
-  padding: var(--m-spacing) var(--m-spacing) 0 var(--m-spacing);
-
-  h1 {
-    color: white;
-    font-weight: bold;
-    font-size: 32px;
-  }
-
-  h4 {
-    margin-top: var(--xl-spacing);
-    box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 10px 5px -5px rgba(0, 0, 0, 0.75);
-    background-color: var(--ur-c-green-t3);
-    padding: var(--m-spacing);
-    color: white;
-  }
-}
-
-@media (max-width: 1023px) {
-  .content-container {
-    flex-direction: column;
-  }
-}
-
-.parallax-section {
-  min-height: 200px;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  max-height: 0px;
 }
 </style>

@@ -12,8 +12,8 @@ import { useDevice, DeviceSize } from '@/utils/mediaQuery';
 
 const isDarkMode = ref(false);
 const themeStore = useThemeStore();
-const isMobile = computed(() => device.size <= DeviceSize.s);
 const device = useDevice();
+const isMobile = computed(() => device.size <= DeviceSize.s);
 onMounted(() => {
   themeStore.initialize();
   isDarkMode.value = themeStore.getTheme() === 'dark';

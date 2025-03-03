@@ -3,10 +3,10 @@
     <div class="wrapper" @mouseleave="hoveredRouteSubmenus = null">
       <nav class="nav">
         <div class="main-menu">
-          <RouterLink to="/">
+          <a href="/#">
             <img v-if="isDarkMode" class="logo" src="@/assets/logo-dark.png" />
             <img v-else class="logo" src="@/assets/logo-light.png" />
-          </RouterLink>
+          </a>
           <RouterLink
             v-for="(item, index) in routes"
             :key="index"
@@ -16,8 +16,16 @@
           >
             {{ item.name }}
           </RouterLink>
-          <ButtonComponent theme="regular" text="Junta-te" />
-          <ButtonComponent theme="money" text="Faz uma doação" />
+          <ButtonComponent
+            :class="{ hidden: isWithinFirstViewport }"
+            theme="regular"
+            text="Junta-te"
+          />
+          <ButtonComponent
+            :class="{ hidden: isWithinFirstViewport }"
+            theme="money"
+            text="Faz uma doação"
+          />
           <div class="social-media">
             <a href="#"><TwitterIcon /></a>
             <a href="#"><InstagramIcon /></a>
@@ -31,7 +39,9 @@
       </nav>
       <Transition name="fadeHeight" mode="out-in">
         <div class="sub-menu" v-if="hoveredRouteSubmenus">
-          <a v-for="(item, index) in hoveredRouteSubmenus" :key="index">{{ item.name }}</a>
+          <a :href="item.path" v-for="(item, index) in hoveredRouteSubmenus" :key="index">{{
+            item.name
+          }}</a>
         </div>
       </Transition>
     </div>
@@ -39,7 +49,7 @@
 </template>
 <script lang="ts" setup>
 import { RouterLink } from 'vue-router';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type { Ref } from 'vue';
 
 import { MoonIcon, SunIcon } from '@heroicons/vue/24/solid';
@@ -56,6 +66,18 @@ defineProps<{
 }>();
 
 const hoveredRouteSubmenus: Ref<null | { path: string; name: string }[]> = ref(null);
+const isWithinFirstViewport = ref(true);
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+function handleScroll() {
+  isWithinFirstViewport.value = window.scrollY < window.innerHeight;
+}
 
 function handleMouseOver(routeIndex: number) {
   hoveredRouteSubmenus.value = routes[routeIndex].submenus;
@@ -64,13 +86,11 @@ function handleMouseOver(routeIndex: number) {
 
 <style lang="scss" scoped>
 header {
-  position: -webkit-sticky; /* For Safari */
   position: fixed;
   top: 0;
-  top: var(--s-spacing);
   left: 0;
   z-index: 10; /* Ensures header is above other content */
-  width: 100%;
+  width: 100vw;
   height: var(--nav-height);
 
   text-align: center;
@@ -181,6 +201,10 @@ nav a.router-link-exact-active {
     background-color: inherit;
     color: var(--navigation-anchor-color-hover);
   }
+}
+
+.hidden {
+  opacity: 0;
 }
 
 .fadeHeight-enter-active,

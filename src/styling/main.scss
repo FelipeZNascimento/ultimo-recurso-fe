@@ -1,5 +1,8 @@
 @use "./base.scss";
 
+html {
+  scroll-behavior: smooth;
+}
 #app {
   font-weight: normal;
 }
@@ -9,6 +12,10 @@ a,
   transition: var(--transition-time);
   color: var(--color-link);
   text-decoration: none;
+}
+h1 {
+  text-align: center;
+  padding: var(--l-spacing);
 }
 img {
   max-width: 100%;
