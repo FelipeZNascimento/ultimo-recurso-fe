@@ -9,12 +9,12 @@ const routes = [
     component: HomeView,
     submenus: [
       {
-        path: '/',
+        path: '/#',
         name: 'Home 1',
       },
       {
-        path: '/',
-        name: 'Home 2',
+        path: '/#parceiros',
+        name: 'Parceiros',
       },
     ],
   },

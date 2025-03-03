@@ -1,6 +1,24 @@
 <template>
   <main class="about">
     <h1>-------------------------------------------------------------------------------</h1>
+    <h1>03/03</h1>
+    <ul>
+      <li>Reformed and reshaped the home screen to feel as a landing page;</li>
+      <li>Anchor routing with Vue router now working;</li>
+      <li>Parallax component no longer depends on external package;</li>
+      <li>[Desktop] Added animations to home (for UR logo, text and buttons);</li>
+      <li>Partners section;</li>
+      <li>
+        Created new reusable components:
+        <ul>
+          <li>Home Text Box;</li>
+          <li>Logo Animation;</li>
+          <li>Partner;</li>
+        </ul>
+      </li>
+      <li>Testing extra components;</li>
+    </ul>
+    <h1>-------------------------------------------------------------------------------</h1>
     <h1>27/02</h1>
     <ul>
       <li>[Desktop] Improved styling on navigation menu;</li>

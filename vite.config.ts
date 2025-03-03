@@ -9,8 +9,12 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 export default defineConfig({
   plugins: [vue(), vueJsx(), vueDevTools()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      {
+        find: '@assets',
+        replacement: fileURLToPath(new URL('./src/assets', import.meta.url)),
+      },
+    ],
   },
 });
