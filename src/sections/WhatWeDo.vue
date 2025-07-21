@@ -61,7 +61,6 @@ import { useIntersectionObserver } from '@vueuse/core';
 import { onMounted, ref, watch } from 'vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { useThemeStore } from '@/stores/ThemeStore';
-import TwitterIcon from '@/components/icons/IconTwitter.vue';
 
 const knobValue = ref(0);
 const whatContainerRef = ref(null); // Reference to the element

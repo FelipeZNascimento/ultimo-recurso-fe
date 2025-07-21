@@ -10,7 +10,7 @@ type TTheme = 'money' | 'regular';
 const props = defineProps<{
   text: string;
   theme: TTheme;
-  isLarge: boolean;
+  isLarge?: boolean;
 }>();
 </script>
 <style lang="scss" scoped>

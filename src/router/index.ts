@@ -1,8 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import UpdatesView from '../views/UpdatesView.vue';
-
-const navRoutes = [
+import type { Component } from 'vue';
+// import UpdatesView from '../views/UpdatesView.vue';
+type navRoute = {
+  path: string;
+  name: string;
+  component: Component;
+  submenus?: { path: string; name: string }[];
+};
+const navRoutes: navRoute[] = [
   {
     path: '/#what',
     name: 'O que fazemos',
@@ -24,7 +30,7 @@ const navRoutes = [
     component: () => import('../views/UpdatesView.vue'),
   },
 ];
-const routes = [
+const routes: navRoute[] = [
   {
     path: '/',
     name: 'Home',
