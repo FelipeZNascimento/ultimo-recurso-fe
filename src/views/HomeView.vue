@@ -1,21 +1,21 @@
 <template>
   <LandingSection />
-  <section>
-    <TheWelcome />
-  </section>
-  <Parallax imageUrl="divider-image-1.jpg" ref="targetElement" />
-  <span id="parceiros" ref="targetElement">&nbsp;</span>
-  <transition name="fade" appear>
+  <WhatWeDo />
+  <HelpUs />
+  <!-- <Parallax imageUrl="divider-image-1.jpg" /> -->
+  <!-- <span id="parceiros" ref="targetElement">&nbsp;</span> -->
+  <!-- <transition name="fade" appear>
     <PartnersSection v-if="isInViewport" />
-  </transition>
-  <FooterSection />
+  </transition> -->
+  <!-- <FooterSection /> -->
 </template>
 
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue';
-import Parallax from '@/components/ParallaxComponent.vue';
+// import Parallax from '@/components/ParallaxComponent.vue';
 import LandingSection from '@/sections/LandingSection.vue';
-import FooterSection from '@/sections/FooterSection.vue';
+import WhatWeDo from '@/sections/WhatWeDo.vue';
+import HelpUs from '@/sections/HelpUs.vue';
+// import FooterSection from '@/sections/FooterSection.vue';
 import { defineAsyncComponent, onMounted, onUnmounted, ref } from 'vue';
 
 const targetElement = ref(null); // Reference to the element
@@ -55,9 +55,11 @@ onUnmounted(() => {
 });
 </script>
 <style lang="scss" scoped>
-#parceiros {
-  scroll-margin-top: var(--nav-height);
+#parceiros,
+#what {
+  scroll-margin-top: 20px;
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: all 1s;

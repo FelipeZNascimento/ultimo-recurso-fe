@@ -1,25 +1,32 @@
 <template>
   <div class="home-text-box">
-    <h1>Direito como principal ferramenta para um mundo mais justo e sustentável</h1>
+    <h1>Utilizamos o Direito para proteger as pessoas, o planeta e as gerações futuras.</h1>
     <h2>
-      Conhece a primeira associação portuguesa que utiliza o Direito como ferramenta de
-      responsabilização dos principais infratores da crise climática do país.
+      Acreditamos no poder do Direito para reduzir as emissões de gases com efeito de estufa,
+      defender as comunidades mais afetadas, prevenir danos ambientais e proteger os direitos
+      humanos.
     </h2>
   </div>
 </template>
 <style lang="scss" scoped>
 .home-text-box {
   h2 {
-    padding-top: var(--xl-spacing);
+    padding-top: var(--s-spacing);
   }
 
   h1,
   h2 {
     display: block;
     position: relative;
+    padding-right: 0;
+    padding-left: 0;
     overflow: hidden;
-    color: var(--color-text);
+    color: var(--color-heading);
     line-height: 1.2;
+    text-align: left;
+    text-shadow:
+      2px 2px 2px #333,
+      4px 4px 8px #000;
 
     &::after {
       position: absolute;

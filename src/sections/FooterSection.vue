@@ -36,7 +36,7 @@
   border-radius: 50rem;
   background-color: #cdebc8;
   width: 400px;
-  height: 400px;
+  height: 200px;
   overflow: hidden;
 }
 /* Land */

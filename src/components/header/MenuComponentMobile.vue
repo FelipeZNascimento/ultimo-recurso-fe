@@ -16,7 +16,7 @@
           <div v-if="isMenuOpen" class="main-menu">
             <div class="main-menu--top-container">
               <RouterLink
-                v-for="(item, index) in routes"
+                v-for="(item, index) in navRoutes"
                 :key="index"
                 :to="item.path"
                 @click="() => (isMenuOpen = false)"
@@ -55,7 +55,7 @@ import YouTubeIcon from '@/components/icons/IconYouTube.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 import { Bars4Icon, XMarkIcon, MoonIcon, SunIcon } from '@heroicons/vue/24/solid';
 
-import { routes } from '@/router';
+import { navRoutes } from '@/router';
 
 defineProps<{
   isDarkMode: boolean;
