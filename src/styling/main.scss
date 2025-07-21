@@ -3,9 +3,6 @@
 html {
   scroll-behavior: smooth;
 }
-#app {
-  font-weight: normal;
-}
 
 a,
 .green {
@@ -15,7 +12,7 @@ a,
 }
 h1 {
   text-align: center;
-  padding: var(--l-spacing);
+  padding: var(--l-spacing) 0;
 }
 img {
   max-width: 100%;

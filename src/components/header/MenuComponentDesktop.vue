@@ -8,7 +8,7 @@
             <img v-else class="logo" src="@/assets/logo-light.png" />
           </a>
           <RouterLink
-            v-for="(item, index) in routes"
+            v-for="(item, index) in navRoutes"
             :key="index"
             :to="item.path"
             @mouseover="() => handleMouseOver(index)"
@@ -58,7 +58,7 @@ import InstagramIcon from '@/components/icons/IconInstagram.vue';
 import YouTubeIcon from '@/components/icons/IconYouTube.vue';
 import ButtonComponent from '@/components/ButtonComponent.vue';
 
-import { routes } from '@/router';
+import { navRoutes } from '@/router';
 
 defineProps<{
   isDarkMode: boolean;
@@ -76,11 +76,11 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 function handleScroll() {
-  isWithinFirstViewport.value = window.scrollY < window.innerHeight;
+  isWithinFirstViewport.value = window.scrollY < 0.7 * window.innerHeight;
 }
 
 function handleMouseOver(routeIndex: number) {
-  hoveredRouteSubmenus.value = routes[routeIndex].submenus;
+  hoveredRouteSubmenus.value = navRoutes[routeIndex].submenus || null;
 }
 </script>
 
@@ -162,7 +162,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--l-spacing);
+    gap: var(--s-spacing);
     width: 100%;
     max-width: var(--max-page-width);
     font-size: 20px;
